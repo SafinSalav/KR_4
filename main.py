@@ -215,7 +215,6 @@ def start():
             print(f'Платформа: {Vacancy_list[0].platform}\n')
             for i in Vacancy_list:
                 print(f'{i}\n')
-            print(len(Vacancy_list))
 
         if answer == 8:
             answer_ = input('Введите название файла: ')
@@ -223,6 +222,7 @@ def start():
             for i in Vacancy_list:
                 json_list.append(i.__dict__)
             to_json(json_list, f'{answer_}.json')
+
         if answer == 9:
             break
 
