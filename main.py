@@ -1,8 +1,6 @@
-from get_api import HH, SuperJob
-from utils import to_json, choice_platform, sort_vacancies, Vacancy_list
-
-to_json(HH().get_vacancies()['items'], 'HH_api.json')
-to_json(SuperJob().get_vacancies()['objects'], 'SuperJob_api.json')
+from get_api import SuperJob
+from utils import choice_platform, sort_vacancies, Vacancy_list
+from json_save import JsonSaver
 
 
 def main():
@@ -73,7 +71,7 @@ def main():
             answer_ = input('Введите ключевое слово: ')
             super_job = SuperJob()
             super_job.keyword = answer_
-            to_json(super_job.get_vacancies()['objects'], 'SuperJob_api.json')
+            JsonSaver('SuperJob_api.json').dump_json(super_job.get_vacancies()['objects'])
             del (Vacancy_list[:])
             choice_platform()
 
@@ -87,7 +85,7 @@ def main():
             json_list = []
             for i in Vacancy_list:
                 json_list.append(i.__dict__)
-            to_json(json_list, f'{answer_}.json')
+            JsonSaver(f'{answer_}.json').dump_json(json_list)
 
         if answer == 9:
             break

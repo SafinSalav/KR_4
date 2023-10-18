@@ -11,7 +11,10 @@ class Vacancy:
             self.description = vacancy['snippet']['requirement']
             self.town = vacancy['area']['name']
             try:
-                self.salary_from = vacancy['salary']['from']
+                if vacancy['salary']['from'] is None:
+                    self.salary_from = 0
+                else:
+                    self.salary_from = vacancy['salary']['from']
             except TypeError:
                 self.salary_from = 0
             try:

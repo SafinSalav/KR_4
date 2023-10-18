@@ -1,18 +1,8 @@
-import json
+from json_save import JsonSaver
 from vacancies import Vacancy
+from get_api import HH, SuperJob
 
 Vacancy_list = []
-
-
-def to_json(data, path):
-    with open(path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False)
-
-
-def load_json(path):
-    with open(path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    return data
 
 
 def choice_platform():
@@ -23,10 +13,12 @@ def choice_platform():
 2) SuperJob
 '''))
     if answer_ == 1:
-        for i in load_json('HH_api.json'):
+        JsonSaver('HH_api.json').dump_json(HH().get_vacancies()['items'])
+        for i in JsonSaver('HH_api.json').load_json():
             Vacancy_list.append(Vacancy(i, 'HH'))
     else:
-        for i in load_json('SuperJob_api.json'):
+        JsonSaver('SuperJob_api.json').dump_json(SuperJob().get_vacancies()['objects'])
+        for i in JsonSaver('SuperJob_api.json').load_json():
             Vacancy_list.append(Vacancy(i, 'SuperJob'))
 
 
